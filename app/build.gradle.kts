@@ -1,9 +1,8 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("fakegps.android.application")
     id("fakegps.android.application.compose")
     id("fakegps.android.hilt")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -19,24 +18,15 @@ android {
     }
 
     buildTypes {
-        val googleMapApiKey = gradleLocalProperties(rootDir).getProperty("GOOGLE_MAPS_API_KEY")
         val debug by getting {
             applicationIdSuffix = ".debug"
-            buildConfigField("String", "GOOGLE_MAPS_API_KEY", googleMapApiKey)
-            buildConfigField("String", "YANDEX_MAPS_API_KEY", gradleLocalProperties(rootDir).getProperty("YANDEX_MAPS_API_KEY"))
-            addManifestPlaceholders(mapOf("GOOGLE_MAPS_API_KEY" to googleMapApiKey))
         }
         val release by getting {
             isMinifyEnabled = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("debug")
-
-            buildConfigField("String", "GOOGLE_MAPS_API_KEY", googleMapApiKey)
-            buildConfigField("String", "YANDEX_MAPS_API_KEY", gradleLocalProperties(rootDir).getProperty("YANDEX_MAPS_API_KEY"))
-            addManifestPlaceholders(mapOf("GOOGLE_MAPS_API_KEY" to googleMapApiKey))
         }
     }
 

@@ -1,7 +1,7 @@
 [versions]
 accompanist = "0.27.0"
 androidDesugarJdkLibs = "1.2.0"
-androidGradlePlugin = "7.3.1"
+androidGradlePlugin = "7.4.0"
 androidxActivity = "1.6.1"
 androidxAppCompat = "1.5.1"
 androidxComposeBom = "2022.11.00"
@@ -34,7 +34,6 @@ hilt = "2.44.2"
 hiltExt = "1.0.0"
 kotlin = "1.7.20"
 kotlinxCoroutines = "1.6.4"
-ksp = "1.7.21-1.0.8"
 secrets = "2.0.1"
 
 [libraries]
@@ -88,7 +87,6 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
