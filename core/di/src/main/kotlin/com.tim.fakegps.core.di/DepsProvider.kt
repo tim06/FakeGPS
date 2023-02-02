@@ -1,6 +1,6 @@
 package com.tim.fakegps.core.di
 
-import android.app.AppOpsManager
+/*import android.app.AppOpsManager
 import android.content.Context
 import android.location.LocationManager
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -10,8 +10,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import javax.inject.Singleton*/
 
+/*
 @Module
 @InstallIn(SingletonComponent::class)
 object DepsProvider {
@@ -34,4 +35,4 @@ object DepsProvider {
         return LocationServices.getFusedLocationProviderClient(context)
     }
 
-}
+}*/

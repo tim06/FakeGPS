@@ -24,7 +24,11 @@ class FakeLocationProvider(
 
     private var locationJob: Job? = null
 
-    fun startFakeLocation(latitude: Double, longitude: Double) {
+    fun startFakeLocation(location: com.tim.location.Location) {
+        startFakeLocation(location.latitude, location.longitude)
+    }
+
+    private fun startFakeLocation(latitude: Double, longitude: Double) {
         locationJob = launch {
             while(true) {
                 setFakeLocationParams(LocationManager.GPS_PROVIDER, latitude, longitude)

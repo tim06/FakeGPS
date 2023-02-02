@@ -25,3 +25,15 @@ fun OnLifecycleEvent(onEvent: (owner: LifecycleOwner, event: Lifecycle.Event) ->
         }
     }
 }
+
+@Composable
+fun OnResumeEvent(onEvent: () -> Unit) {
+    OnLifecycleEvent { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> {
+                onEvent.invoke()
+            }
+            else -> {}
+        }
+    }
+}

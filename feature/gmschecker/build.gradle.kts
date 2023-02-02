@@ -1,6 +1,5 @@
 plugins {
     id("fakegps.android.library")
-    id("fakegps.android.hilt")
 }
 
 android {
@@ -8,5 +7,6 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.android)
     implementation(libs.playservices.base)
 }

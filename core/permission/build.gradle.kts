@@ -1,7 +1,6 @@
 plugins {
     id("fakegps.android.library")
     id("fakegps.android.library.compose")
-    id("fakegps.android.hilt")
 }
 
 android {
@@ -9,6 +8,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.android)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.accompanist.permissions)
 }

@@ -12,6 +12,8 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
@@ -43,6 +45,18 @@ suspend fun getCurrentLocation(context: Context): Location? {
 suspend fun getCurrentLocation(locationProvider: FusedLocationProviderClient): Location? {
     return getLastKnownDeviceLocation(locationProvider) ?: awaitLocation(locationProvider)
 }
+
+/*@SuppressLint("MissingPermission")
+fun locationUpdated(locationProvider: FusedLocationProviderClient): Flow<Location> = flow {
+    val listener = { location: Location ->
+        emit(location)
+    }
+    val request = LocationRequest.Builder(60000)
+        .setWaitForAccurateLocation(true)
+        .build()
+    locationProvider.requestLocationUpdates(request, listener, null)
+    locationProvider.removeLocationUpdates(listener)
+}*/
 
 @SuppressLint("MissingPermission")
 private suspend fun getLastKnownDeviceLocation(locationProvider: FusedLocationProviderClient) =

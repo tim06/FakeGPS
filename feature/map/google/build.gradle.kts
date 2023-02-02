@@ -8,7 +8,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:map:state"))
+    implementation(project(":feature:model"))
+    implementation(project(":feature:map:commondata"))
 
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.runtime)

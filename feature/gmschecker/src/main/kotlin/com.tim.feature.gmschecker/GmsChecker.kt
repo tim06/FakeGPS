@@ -7,7 +7,6 @@ import com.google.android.gms.common.GoogleApiAvailability
 class GmsChecker(
     private val context: Context, private val googleApiAvailability: GoogleApiAvailability
 ) {
-
     @Suppress("BooleanMethodIsAlwaysInverted")
     fun isPlayServicesAvailable() =
         googleApiAvailability.isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS

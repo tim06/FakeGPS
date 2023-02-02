@@ -1,8 +1,13 @@
 plugins {
     id("fakegps.android.library")
-    id("fakegps.android.hilt")
 }
 
 android {
     namespace = "com.tim.fakegps.feature.locationProvider"
+}
+
+dependencies {
+    implementation(project(":feature:model"))
+    implementation(libs.koin.android)
+    implementation(libs.kotlinx.coroutines.android)
 }

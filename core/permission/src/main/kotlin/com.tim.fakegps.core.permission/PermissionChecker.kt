@@ -3,10 +3,9 @@ package com.tim.fakegps.core.permission
 import android.app.AppOpsManager
 import android.content.Context
 import android.os.Build
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 class PermissionChecker(
-    @ApplicationContext private val context: Context, private val appOpsManager: AppOpsManager
+    private val context: Context, private val appOpsManager: AppOpsManager
 ) {
     fun isMockLocationEnabled(): Boolean {
         return try {

@@ -1,6 +1,5 @@
 plugins {
     id("fakegps.android.library")
-    id("fakegps.android.hilt")
 }
 
 android {
