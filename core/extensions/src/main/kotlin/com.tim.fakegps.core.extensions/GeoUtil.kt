@@ -12,9 +12,8 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 
 @RequiresPermission(anyOf = ["android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_FINE_LOCATION"])
@@ -59,6 +58,20 @@ fun locationUpdated(locationProvider: FusedLocationProviderClient): Flow<Locatio
 }*/
 
 @SuppressLint("MissingPermission")
+suspend fun getCurrentLocation1(context: Context): Location? = suspendCancellableCoroutine { continuation ->
+    val locationProvider = LocationServices.getFusedLocationProviderClient(context)
+    locationProvider.lastLocation.addOnCompleteListener { task: Task<Location?> ->
+        if (task.isSuccessful) {
+            println("qweqwe, ${task.result?.latitude}:::${task.result?.longitude}")
+            continuation.resume(task.result)
+        } else {
+            println("qweqwe, getCurrentLocation1 null")
+            continuation.resume(null)
+        }
+    }
+}
+
+@SuppressLint("MissingPermission")
 private suspend fun getLastKnownDeviceLocation(locationProvider: FusedLocationProviderClient) =
     suspendCancellableCoroutine { continuation ->
         locationProvider.lastLocation.addOnCompleteListener { task: Task<Location?> ->
@@ -74,6 +87,6 @@ private suspend fun getLastKnownDeviceLocation(locationProvider: FusedLocationPr
 private suspend fun awaitLocation(locationProvider: FusedLocationProviderClient) =
     suspendCancellableCoroutine<Location?> { continuation ->
         val request =
-            LocationRequest.Builder(60000).setWaitForAccurateLocation(true).setMaxUpdates(1).build()
-        locationProvider.requestLocationUpdates(request, continuation::resume, null)
+            LocationRequest.Builder(500).setMaxUpdates(1).build()
+        locationProvider.requestLocationUpdates(request, Executors.newSingleThreadExecutor(), continuation::resume)
     }

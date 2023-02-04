@@ -40,7 +40,7 @@ internal class CommonMapStoreProvider(
         }
 
         override fun executeIntent(intent: Intent, getState: () -> State): Unit = when (intent) {
-            is Intent.OnLocationUpdated -> locationSelected(intent.location)
+            is Intent.OnLocationUpdated -> locationSelected(state = getState(), location = intent.location)
             is Intent.OnButtonClick -> buttonClick(state = getState())
         }
 
@@ -49,7 +49,10 @@ internal class CommonMapStoreProvider(
             fakeLocationProvider.clear()
         }
 
-        private fun locationSelected(location: Location) {
+        private fun locationSelected(state: State, location: Location) {
+            if (state.isRunning) {
+                buttonClick(state)
+            }
             dispatch(Msg.LocationUpdated(location = location))
         }
 

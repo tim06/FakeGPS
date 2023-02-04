@@ -17,7 +17,7 @@ fun rememberMapViewWithLifecycle(onClick: (Location) -> Unit): MapView {
     val mapView = remember { MapView(context) }
 
     val clickListener = GeoObjectTapListener { geoObjTapEvent ->
-        geoObjTapEvent.geoObject.geometry.firstOrNull()?.point?.let {
+        geoObjTapEvent.geoObject.geometry.map { it.point }.firstOrNull()?.let {
             onClick.invoke(Location(it.latitude, it.longitude))
         }
         true
@@ -28,6 +28,9 @@ fun rememberMapViewWithLifecycle(onClick: (Location) -> Unit): MapView {
             Lifecycle.Event.ON_START -> {
                 mapView.onStart()
                 MapKitFactory.getInstance().onStart()
+                mapView.overlay
+                mapView.mapWindow
+                mapView.map
                 mapView.map.addTapListener(clickListener)
             }
 

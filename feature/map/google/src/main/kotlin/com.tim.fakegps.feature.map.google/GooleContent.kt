@@ -3,6 +3,7 @@ package com.tim.fakegps.feature.map.google
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -12,14 +13,14 @@ import com.tim.fakegps.feature.map.commondata.latLngToLocation
 import com.tim.location.Location
 
 @Composable
-fun GoogleContent(state: Model, onMapClick: (Location) -> Unit) {
+fun GoogleContent(modifier: Modifier = Modifier, state: Model, onMapClick: (Location) -> Unit) {
     //val coroutineScope = rememberCoroutineScope()
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition(LatLng(40.52, 34.34), 0f, 0f, 0f)
     }
 
     Box {
-        GoogleMap(cameraPositionState = cameraPositionState, uiSettings = MapUiSettings(
+        GoogleMap(modifier = modifier, cameraPositionState = cameraPositionState, uiSettings = MapUiSettings(
             compassEnabled = true, mapToolbarEnabled = false, myLocationButtonEnabled = false
         ), onMapLoaded = {
             /*if (uiState.isInitialMoveToDevicePositionAllowed) {

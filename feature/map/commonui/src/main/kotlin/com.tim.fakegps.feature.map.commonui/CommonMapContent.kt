@@ -16,9 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetpack.subscribeAsState
 import com.tim.fakegps.feature.map.commondata.CommonMapMain
+import com.tim.fakegps.feature.map.commonui.test.TestTags.GOOGLE_MAP
+import com.tim.fakegps.feature.map.commonui.test.TestTags.YANDEX_MAP
 import com.tim.fakegps.feature.map.google.GoogleContent
 import com.tim.fakegps.feature.map.yandex.YandexContent
 import com.tim.location.MapProvider
@@ -28,8 +31,8 @@ fun CommonMapContent(component: CommonMapMain) {
     val state by component.models.subscribeAsState()
     Box(modifier = Modifier.fillMaxSize()) {
         when (state.provider) {
-            MapProvider.Google -> GoogleContent(state = state, onMapClick = component::onMapClick)
-            MapProvider.Yandex -> YandexContent(state = state, onMapClick = component::onMapClick)
+            MapProvider.Google -> GoogleContent(modifier = Modifier.testTag(GOOGLE_MAP), state = state, onMapClick = component::onMapClick)
+            MapProvider.Yandex -> YandexContent(modifier = Modifier.testTag(YANDEX_MAP), state = state, onMapClick = component::onMapClick)
         }
 
         IconButton(
@@ -45,7 +48,7 @@ fun CommonMapContent(component: CommonMapMain) {
         ) {
             Icon(
                 imageVector = if (state.isRunning) Icons.Default.Close else Icons.Default.PlayArrow,
-                contentDescription = if (state.isRunning) "Stop fake location" else "Start fake location"
+                contentDescription = if (state.isRunning) "Stop" else "Start"
             )
         }
     }

@@ -1,6 +1,7 @@
 package com.tim.fakegps.feature.map.yandex
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.tim.fakegps.feature.map.commondata.CommonMapMain.Model
 import com.tim.location.Location
@@ -10,10 +11,13 @@ import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
 
 @Composable
-fun YandexContent(state: Model, onMapClick: (Location) -> Unit) {
+fun YandexContent(modifier: Modifier = Modifier, state: Model, onMapClick: (Location) -> Unit) {
     val mapView = rememberMapViewWithLifecycle(onMapClick)
 
-    AndroidView(factory = { mapView }) { mv ->
+    AndroidView(
+        modifier = modifier,
+        factory = { mapView }
+    ) { mv ->
         mv.map.apply {
             isZoomGesturesEnabled = true
             val point = Point(40.52, 34.34)

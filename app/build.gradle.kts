@@ -45,6 +45,7 @@ android {
 dependencies {
     implementation(project(":feature:main"))
     implementation(project(":core:permission"))
+    implementation(project(":core:extensions"))
     implementation(project(":feature:gmschecker"))
     implementation(project(":feature:locationprovider"))
 
@@ -64,4 +65,10 @@ dependencies {
     implementation(libs.androidx.dataStore.preferences)
 
     implementation(libs.yandex.mapkit)
+
+    androidTestImplementation(project(":core:extensions"))
+    androidTestImplementation(project(":feature:map:commonui"))
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.compose.ui.test)
+    androidTestImplementation(libs.androidx.compose.ui.testManifest)
 }
