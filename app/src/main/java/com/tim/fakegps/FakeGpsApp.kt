@@ -3,7 +3,8 @@ package com.tim.fakegps
 import android.app.Application
 import com.tim.fakegps.core.permission.di.permissionsModule
 import com.tim.fakegps.di.appModule
-import com.tim.fakegps.feature.locationprovider.di.fakeLocationProviderModule
+import com.tim.fakegps.feature.geocoder.di.geocoderProviderModule
+import com.tim.fakegps.feature.fakelocationprovider.di.fakeLocationProviderModule
 import com.tim.feature.gmschecker.di.gmsCheckerModule
 import com.yandex.mapkit.MapKitFactory
 import org.koin.android.ext.koin.androidContext
@@ -17,7 +18,7 @@ class FakeGpsApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@FakeGpsApp)
-            modules(listOf(appModule, gmsCheckerModule, fakeLocationProviderModule, permissionsModule))
+            modules(listOf(appModule, gmsCheckerModule, fakeLocationProviderModule, permissionsModule, geocoderProviderModule))
         }
 
         MapKitFactory.setApiKey(BuildConfig.YANDEX_MAPS_API_KEY)

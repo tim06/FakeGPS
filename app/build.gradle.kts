@@ -1,14 +1,16 @@
 plugins {
     id("fakegps.android.application")
     id("fakegps.android.application.compose")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
     defaultConfig {
         applicationId = "com.tim.fakegps"
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = 2
+        versionName = "0.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -18,7 +20,8 @@ android {
 
     buildTypes {
         val debug by getting {
-            applicationIdSuffix = ".debug"
+            isDebuggable = true
+            isMinifyEnabled = false
         }
         val release by getting {
             isMinifyEnabled = true
@@ -45,9 +48,9 @@ android {
 dependencies {
     implementation(project(":feature:main"))
     implementation(project(":core:permission"))
-    implementation(project(":core:extensions"))
-    implementation(project(":feature:gmschecker"))
-    implementation(project(":feature:locationprovider"))
+    implementation(project(":core:gmschecker"))
+    implementation(project(":core:fakelocationprovider"))
+    implementation(project(":core:geocoder"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
@@ -56,18 +59,19 @@ dependencies {
 
     implementation(libs.koin.android.compose)
 
+    implementation(libs.arkivanov.decompose)
     implementation(libs.arkivanov.mvi.kotlin)
     implementation(libs.arkivanov.mvi.kotlin.logging)
     implementation(libs.arkivanov.mvi.kotlin.timeTravel)
-
-    implementation(libs.arkivanov.decompose)
 
     implementation(libs.androidx.dataStore.preferences)
 
     implementation(libs.yandex.mapkit)
 
-    androidTestImplementation(project(":core:extensions"))
-    androidTestImplementation(project(":feature:map:commonui"))
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+
+    androidTestImplementation(project(":feature:map:common:commonui"))
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.compose.ui.test)
     androidTestImplementation(libs.androidx.compose.ui.testManifest)

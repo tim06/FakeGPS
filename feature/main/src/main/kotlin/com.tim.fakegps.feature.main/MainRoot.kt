@@ -2,7 +2,7 @@ package com.tim.fakegps.feature.main
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
-import com.tim.fakegps.feature.map.commondata.CommonMapMain
+import com.tim.fakegps.feature.map.mapmain.MapMainComponent
 import com.tim.fakegps.feature.preload.PreloadMain
 
 interface MainRoot {
@@ -11,6 +11,6 @@ interface MainRoot {
 
     sealed class Child {
         data class Preload(val component: PreloadMain) : Child()
-        data class CommonMap(val component: CommonMapMain) : Child()
+        data class CommonParentMap(val component: MapMainComponent) : Child()
     }
 }

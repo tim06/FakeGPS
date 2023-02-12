@@ -10,8 +10,7 @@ import com.tim.fakegps.feature.preload.store.PreloadStore.Intent
 import com.tim.fakegps.feature.preload.store.PreloadStore.State
 
 internal class PreloadStoreProvider(
-    private val storeFactory: StoreFactory,
-    private val permissionChecker: PermissionChecker
+    private val storeFactory: StoreFactory, private val permissionChecker: PermissionChecker
 ) {
 
     fun provide(): PreloadStore =
@@ -29,24 +28,27 @@ internal class PreloadStoreProvider(
     }
 
     private inner class ExecutorImpl : CoroutineExecutor<Intent, Unit, State, Msg, Nothing>() {
-        override fun executeIntent(intent: Intent, getState: () -> State) =
-            when (intent) {
-                is Intent.CheckMockPermission -> checkMockPermission(getState())
-            }
+        override fun executeAction(action: Unit, getState: () -> State) {
+            checkMockPermission()
+        }
 
-        private fun checkMockPermission(state: State) {
-            val initial = state.isMockPermissionGranted
+        override fun executeIntent(intent: Intent, getState: () -> State) = when (intent) {
+            is Intent.CheckMockPermission -> checkMockPermission()
+        }
+
+        private fun checkMockPermission() {
+            dispatch(Msg.LoadingStarted)
             val current = permissionChecker.isMockLocationEnabled()
-            if (initial != current) {
-                dispatch(Msg.MockPermissionStatusChanged(current))
-            }
+            dispatch(Msg.MockPermissionStatusChanged(current))
         }
     }
 
     private object ReducerImpl : Reducer<State, Msg> {
         override fun State.reduce(msg: Msg): State = when (msg) {
             is Msg.LoadingStarted -> copy(isLoading = true)
-            is Msg.MockPermissionStatusChanged -> copy(isMockPermissionGranted = msg.granted)
+            is Msg.MockPermissionStatusChanged -> copy(
+                isMockPermissionGranted = msg.granted, isLoading = false
+            )
         }
     }
 }

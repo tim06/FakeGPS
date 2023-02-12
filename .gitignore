@@ -17,3 +17,4 @@ local.properties
 # Project exclude paths
 /build-logic/convention/build/
 /.idea/
+/app/google-services.json

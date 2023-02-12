@@ -1,17 +1,17 @@
 package com.tim.fakegps.feature.preload
 
-import com.arkivanov.decompose.value.Value
+import kotlinx.coroutines.flow.Flow
 
 interface PreloadMain {
 
-    val models: Value<Model>
+    val models: Flow<Model>
 
     fun onPermissionGranted()
 
     fun checkMockPermission()
 
     data class Model(
-        val isLoading: Boolean = true,
-        val hasMockPermission: Boolean = false
+        val isLoading: Boolean = false,
+        val hasMockPermission: Boolean = true
     )
 }

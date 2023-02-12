@@ -3,7 +3,7 @@ package com.tim.fakegps
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.rule.GrantPermissionRule
-import com.tim.fakegps.feature.map.commonui.test.TestTags.GOOGLE_MAP
+import com.tim.fakegps.feature.map.common.commonui.test.TestTags.GOOGLE_MAP
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher

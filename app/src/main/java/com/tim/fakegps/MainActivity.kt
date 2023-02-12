@@ -8,7 +8,8 @@ import com.arkivanov.decompose.defaultComponentContext
 import com.arkivanov.mvikotlin.logging.store.LoggingStoreFactory
 import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
 import com.tim.fakegps.core.permission.PermissionChecker
-import com.tim.fakegps.feature.locationprovider.FakeLocationProvider
+import com.tim.fakegps.feature.fakelocationprovider.FakeLocationProvider
+import com.tim.fakegps.feature.geocoder.Geocoder
 import com.tim.fakegps.feature.main.MainRoot
 import com.tim.fakegps.feature.main.MainRootComponent
 import com.tim.fakegps.feature.main.MainRootContent
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
     private val gmsChecker: GmsChecker by inject()
     private val fakeLocationProvider: FakeLocationProvider by inject()
     private val permissionChecker: PermissionChecker by inject()
+    private val geocoder: Geocoder by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,7 @@ class MainActivity : ComponentActivity() {
         storeFactory = LoggingStoreFactory(TimeTravelStoreFactory()),
         gmsChecker = gmsChecker,
         permissionChecker = permissionChecker,
-        fakeLocationProvider = fakeLocationProvider
+        fakeLocationProvider = fakeLocationProvider,
+        geocoder = geocoder
     )
 }
