@@ -5,7 +5,7 @@ kotlinxCoroutines = "1.6.4"
 accompanist = "0.27.0"
 
 androidDesugarJdkLibs = "2.0.2"
-androidGradlePlugin = "7.4.1"
+androidGradlePlugin = "8.2.2"
 androidxActivity = "1.6.1"
 androidxAppCompat = "1.6.1"
 androidxComposeBom = "2023.01.00"
